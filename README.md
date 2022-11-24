@@ -21,7 +21,7 @@ git clone https://github.com/BryceCh/tower_config_examples
 cd tower_config_examples
 pip install --upgrade pip
 pip install -r requirements.txt
-ansible-galaxy collection install -r collections/requirements.yml -p collections/
+ansible-galaxy collection install -r collections/requirements.yaml -p collections/
 ```
 
 ## Usage
