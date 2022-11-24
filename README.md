@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Note: awxkit >18.0 requires Python >3.6
+Note: awxkit >18.0 requires Python >3.6  
 This project was tested with Python 3.8
 
 See `requirements.txt` for a full list of python dependencies  
