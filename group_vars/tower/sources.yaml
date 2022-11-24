@@ -1,0 +1,47 @@
+---
+controller_inventory_sources:
+  - name: "VMWare vCenter"
+    source: vmware
+    inventory: "All hosts - VMWare"
+    credential: "VMWare vCenter"
+    description: "connector for vSphere"
+    overwrite: true
+    update_on_launch: true
+    update_cache_timeout: 0
+    state: present
+    source_vars:
+      "{'hostnames':['config.name']}"
+  - name: "VMWare vCenter"
+    source: vmware
+    inventory: "Linux"
+    credential: "VMWare vCenter"
+    description: "connector for vSphere"
+    overwrite: true
+    update_on_launch: true
+    update_cache_timeout: 0
+    state: present
+    source_vars:
+      "{'hostnames':['config.name'],'filters':['config.guestId == \"ubuntu64Guest\" or config.guestId == \"rhel8_64Guest\" or config.guestId == \"
+centos7_64Guest\" or config.guestId == \"rhel7_64Guest\" or config.guestId == \"debian11_64Guest\" or config.guestId == \"debian10_64Guest\"','summary.runtime.powerState == \"poweredOn\"']}"
+  - name: "VMWare vCenter"
+    source: vmware
+    inventory: "Windows Servers"
+    credential: "VMWare vCenter"
+    description: "connector for vSphere"
+    overwrite: true
+    update_on_launch: true
+    update_cache_timeout: 0
+    state: present
+    source_vars:
+      hostnames: ['config.name']
+      compose: {'ansible_host': 'guest.hostName'}
+      filters: ['config.guestId == "windows9Server64Guest" and summary.runtime.powerState == "poweredOn"']
+  - name: "Satellite6"
+    source: satellite6
+    inventory: Satellite6
+    credential: satellite
+    description: "connector for Red Hat Satellite 6"
+    overwrite: true
+    update_on_launch: true
+    update_cache_timeout: 0
+    state: present

@@ -1,0 +1,20 @@
+---
+controller_templates:
+  - name: "Debug Playbook ({{ tower_env|upper }})"
+    job_type: run
+    organization: "{{ awx_organization }}"
+    project: "Ansible Examples - ({{ tower_env|upper }})"
+    playbook: debug.yml
+    inventory: Demo Inventory
+    survey_enabled: yes
+    survey:
+      name: ""
+      description: ""
+      spec:
+        - question_name: Debug message
+          required: yes
+          type: text
+          variable: msg
+          min: 0
+          max: 1024
+          default: hello from Dev

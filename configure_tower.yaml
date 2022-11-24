@@ -1,0 +1,90 @@
+---
+- name: "Configure Tower in environment {{ tower_env }}"
+  hosts: tower_{{ tower_env }}
+  connection: local
+  gather_facts: no
+  
+  collections:
+    - awx.awx
+
+  vars:
+    controller_validate_certs: false
+    controller_hostname: "{{ inventory_hostname }}"
+    awx_organization: "ExampleOrg_{{ tower_env|upper }}"
+    tower_username: "{{ lookup('ansible.builtin.env', 'tower_username', default='nobody') }}"
+    tower_password: "{{ lookup('ansible.builtin.env', 'tower_password', default='nobody') }}"
+
+  vars_prompt:
+    - name: tower_env
+      prompt: Tower environment (dev/prod)
+
+    # Optionally, prompt for tower username/password instead of using env vars
+    # - name: tower_username
+    #   prompt: Username
+
+    # - name: tower_password
+    #   prompt: Password
+    #   private: yes
+
+  # Optionally, create a credential file and import it instead of using a vars prompt. E.g.
+  # cat ~/.tower-dev
+  # tower_username: myUsername
+  # tower_password: myPassword
+  # pre_tasks:
+  #   - name: Import TowerCLI creds
+  #     include_vars: 
+  #         file: "~/.tower-{{ tower_env }}"
+
+  tasks:
+    - name: Get token for use during play
+      uri:
+        url: "https://{{ controller_hostname }}/api/v2/tokens/"
+        method: POST
+        user: "{{ tower_username }}"
+        password: "{{ tower_password }}"
+        force_basic_auth: yes
+        status_code: 201
+        validate_certs: no
+      register: user_token
+      no_log: True
+
+    - name: Set Tower oath Token
+      set_fact:
+        controller_oauthtoken: "{{ user_token.json.token }}"
+
+    # Could also call redhat_cop.controller_configuration.dispatch role here
+    # See https://github.com/redhat-cop/controller_configuration/blob/devel/playbooks/configure_controller.yml
+    - name: Add Organizations
+      include_role:
+        name: redhat_cop.controller_configuration.organizations
+      when: controller_organizations is defined
+
+    - name: Add Credentials
+      include_role:
+        name: redhat_cop.controller_configuration.credentials
+      when: controller_credentials is defined
+      
+    - name: Add Projects
+      include_role:
+        name: redhat_cop.controller_configuration.projects
+      when: controller_projects is defined
+
+    - name: Add Inventories
+      include_role:
+        name: redhat_cop.controller_configuration.inventories
+      when: controller_inventories is defined
+
+    - name: Add Inventory Sources
+      include_role:
+        name: redhat_cop.controller_configuration.inventory_sources
+      when: controller_inventory_sources is defined
+    
+    - name: Update Inventory Sources
+      include_role:
+        name: redhat_cop.controller_configuration.inventory_source_update
+      when: controller_inventory_sources is defined
+
+    - name: Add Templates
+      include_role:
+        name: redhat_cop.controller_configuration.job_templates
+      when: controller_templates is defined

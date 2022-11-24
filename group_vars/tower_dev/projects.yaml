@@ -1,0 +1,26 @@
+---
+controller_projects:
+- name: "Ansible Examples - ({{ tower_env|upper }})"
+  organization: "{{ awx_organization }}"
+  scm_branch: master
+  scm_clean: 'no'
+  scm_delete_on_update: 'no'
+  scm_type: git
+  scm_update_on_launch: 'no'
+  scm_url: https://github.com/ansible/test-playbooks
+- name: "Ansible Tower Samples - ({{ tower_env|upper }})"
+  organization: "{{ awx_organization }}"
+  scm_branch: master
+  scm_clean: 'no'
+  scm_delete_on_update: 'no'
+  scm_type: git
+  scm_update_on_launch: 'no'
+  scm_url: https://github.com/ansible/ansible-tower-samples
+- name: "Automated EE build - ({{ tower_env|upper }})"
+  organization: "{{ awx_organization }}"
+  scm_branch: main
+  scm_clean: 'no'
+  scm_delete_on_update: 'no'
+  scm_type: git
+  scm_update_on_launch: 'no'
+  scm_url: https://github.com/w4hf/automated-ee-build

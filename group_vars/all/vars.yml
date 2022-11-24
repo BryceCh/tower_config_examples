@@ -1,0 +1,20 @@
+---
+github_user: "{{ vault_github_username }}"
+github_password: "{{ vault_github_token }}"
+
+windows_user: "{{ vault_windows_user}}"
+windows_password: "{{ vault_windows_password }}"
+
+vmware_host: "{{ vault_vmware_host }}"
+vmware_user: "{{ vault_vmware_user }}"
+vmware_password: "{{ vault_vmware_password }}"
+
+satellite_host: "{{ vault_satellite_host }}"
+satellite_user: "{{ vault_satellite_user }}"
+satellite_password: "{{ vault_satellite_password }}"
+
+linux_user: "{{ vault_linux_user }}"
+linux_ssh_key: "{{ vault_linux_ssh_key }}"
+
+# Used to view credentials in Ansible log
+# controller_configuration_credentials_secure_logging: False

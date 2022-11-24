@@ -1,0 +1,10 @@
+---
+controller_inventories:
+  - name: "All hosts - VMWare"
+    organization: "{{ awx_organization }}"
+  - name: "Linux"
+    organization: "{{ awx_organization }}"
+  - name: "Windows Servers"
+    organization: "{{ awx_organization }}"
+  - name: "Satellite6"
+    organization: "{{ awx_organization }}"

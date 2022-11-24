@@ -1,0 +1,40 @@
+---
+controller_templates:
+  - name: "Debug Playbook (Hello World) - Linux - ({{ tower_env|upper }})"
+    job_type: run
+    credentials:
+      - LinuxSSH
+    organization: "{{ awx_organization }}"
+    project: "Ansible Tower Samples - ({{ tower_env|upper }})"
+    playbook: hello_world.yml
+    inventory: Linux
+  - name: "Debug Playbook (Hello World) - Windows - ({{ tower_env|upper }})"
+    job_type: run
+    credentials:
+      - WindowsAdmin
+    organization: "{{ awx_organization }}"
+    project: "Ansible Tower Samples - ({{ tower_env|upper }})"
+    playbook: hello_world.yml
+    inventory: Windows Servers
+    extra_vars:
+      "{'ansible_connection': 'winrm', 'ansible_winrm_server_cert_validation': 'ignore','ansible_winrm_read_timeout_sec': '120'}"
+  - name: "Debug Playbook ({{ tower_env|upper }})"
+    job_type: run
+    organization: "{{ awx_organization }}"
+    project: "Ansible Examples - ({{ tower_env|upper }})"
+    playbook: debug.yml
+    inventory: Demo Inventory
+    survey_enabled: yes
+    survey:
+      name: ""
+      description: ""
+      spec:
+        - question_name: Debug message
+          required: yes
+          type: text
+          variable: msg
+          min: 0
+          max: 1024
+          default: hello from Prod
+
+   

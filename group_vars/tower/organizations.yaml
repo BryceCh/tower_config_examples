@@ -1,0 +1,8 @@
+---
+controller_organizations:
+- name: Default
+  description: This is the Default Group
+  state: present
+- name: "{{ awx_organization }}"
+  description: "Default organization for {{ tower_env }}"
+  state: present
