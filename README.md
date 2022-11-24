@@ -7,7 +7,7 @@ This project was tested with Python 3.8
 
 See `requirements.txt` for a full list of python dependencies  
 
-Required Ansible collections are under `collections/requirements.yml`
+Required Ansible collections are under `collections/requirements.yaml`
 
 ## Setup
 
